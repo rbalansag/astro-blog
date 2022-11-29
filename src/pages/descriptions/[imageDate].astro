@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro"
 import { Image } from "@astrojs/image/components"
 
 const { imageDate } = Astro.params
-const image = await fetch(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${imageDate}`).then((res) =>
+const image = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${import.meta.env.NASA_API_KEY}&date=${imageDate}`).then((res) =>
   res.json()
 )
 ---

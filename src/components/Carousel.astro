@@ -15,10 +15,10 @@ type Image = {
   service_version: string
 }
 
-const images: Image[] = await fetch(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=5`).then((res) =>
+const images: Image[] = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${import.meta.env.NASA_API_KEY}&count=4`).then((res) =>
   res.json()
 )
-console.log(images)
+console.log(`https://api.nasa.gov/planetary/apod?api_key=${import.meta.env.PUBLIC_POKEAPI}&count=4`, images)
 
 const {url, title} = Astro.props;
 ---
