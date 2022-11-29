@@ -33,6 +33,10 @@ const {url, title} = Astro.props;
         if (image.media_type === "image") {
           return (
             <div class="swiper-slide">
+              <a  href={`/descriptions/${image.date}`}>
+              <div class="title" data-swiper-parallax="-100">{image.title}</div>
+              <div class="subtitle" data-swiper-parallax="-100">{image.explanation.substring(0,50)} ...</div>
+              </a>
               <Image src={image.hdurl || image.url} width={400} height={300} title={image.title} alt={image.explanation} format="webp" />
             </div>
           )
@@ -84,8 +88,24 @@ const {url, title} = Astro.props;
 </script>
 
 <style>
-  .swiper {
+.swiper {
   width: 400px;
   height: 300px;
 }
+.swiper-slide .title {
+    position: absolute;
+    top: 250px;
+    left: 10px;
+    color: white;
+    font-weight: bold;
+    font-size:12pt;
+    font-family: 'Mark Bold' !important;
+  }
+  .swiper-slide .subtitle {
+    position: absolute;
+    top: 275px;
+    left: 20px;
+    color: white;
+    font-size:10pt;
+  }
 </style>

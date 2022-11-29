@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import { Image } from "@astrojs/image/components"
+
+const { imageDate } = Astro.params
+const image = await fetch(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${imageDate}`).then((res) =>
+  res.json()
+)
+---
+
+<BaseLayout pageTitle={`NASA Picture of the Day for ${imageDate}`}>
+  <main>
+    <main>
+      <h2>{image.title}</h2>
+      <Image
+        src={image.hdurl || image.url}
+        width={400}
+        height={300}
+        title={image.title}
+        alt={image.explanation}
+        format="webp"
+      />
+      <p slot="figcaption">
+        {image.explanation}
+      </p>
+    </main>
+  </main>
+</BaseLayout>
+
+<style></style>
