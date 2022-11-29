@@ -1,0 +1,91 @@
+---
+import { Image } from "@astrojs/image/components"
+
+type Image = {
+  title: string
+  explanation: string
+  media_type: "image" | "video"
+  /** Date published in YYYY-MM-DD format */
+  date: string
+  /** Video URL or standard resolution image URL */
+  url: string
+  /** High-res image URL (for media_type: 'image' only) */
+  hdurl?: string
+  /** API version. Defaults to "v1" */
+  service_version: string
+}
+
+const images: Image[] = await fetch(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=5`).then((res) =>
+  res.json()
+)
+console.log(images)
+
+const {url, title} = Astro.props;
+---
+
+<!-- Slider main container -->
+<div class="swiper">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    {
+      images.map((image) => {
+        if (image.media_type === "image") {
+          return (
+            <div class="swiper-slide">
+              <Image src={image.hdurl || image.url} width={400} height={300} title={image.title} alt={image.explanation} format="webp" />
+            </div>
+          )
+        }
+      })
+    }
+    ...
+  </div>
+  <!-- If we need pagination -->
+  <div class="swiper-pagination"></div>
+
+  <!-- If we need navigation buttons -->
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+
+  <!-- If we need scrollbar -->
+  <div class="swiper-scrollbar"></div>
+</div>
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+/>
+
+<script type="module">
+  import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.esm.browser.min.js'
+
+  const swiper = new Swiper('.swiper', {
+  // Optional parameters
+  direction: 'vertical',
+  loop: true,
+
+  // If we need pagination
+  pagination: {
+    el: '.swiper-pagination',
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+});
+</script>
+
+<style>
+  .swiper {
+  width: 400px;
+  height: 300px;
+}
+</style>
