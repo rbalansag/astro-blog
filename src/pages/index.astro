@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 import Greeting from "../components/Greeting"
 import Carousel from "../components/Carousel.astro";
 const pageTitle = "Home Page"
-const test = Astro.url.searchParams.get("userId")
 ---
 
 <BaseLayout pageTitle={pageTitle}>
@@ -14,7 +13,3 @@ const test = Astro.url.searchParams.get("userId")
   <!-- <Carousel /> -->
 
 </BaseLayout>
-
-<script define:vars={{test}}>
-console.log(test,32323)
-</script>
