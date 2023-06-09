@@ -3,14 +3,18 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 import Greeting from "../components/Greeting"
 import Carousel from "../components/Carousel.astro";
 const pageTitle = "Home Page"
-
+const test = Astro.url.searchParams.get("userId")
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <h2>Random Greeting using Preact</h2>
   <Greeting messages={["Hi", "Hello", "Howdy", "Hey there"]} />
 
-  <h2>Images</h2>
-  <Carousel />
+  <!-- <h2>Images</h2> -->
+  <!-- <Carousel /> -->
 
 </BaseLayout>
+
+<script define:vars={{test}}>
+console.log(test,32323)
+</script>
